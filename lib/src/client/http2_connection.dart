@@ -391,7 +391,10 @@ class SocketTransportConnector implements ClientTransportConnector {
       );
       incoming = socket;
     }
-    return ClientTransportConnection.viaStreams(incoming, socket);
+    return ClientTransportConnection.viaStreams(incoming, socket,
+        settings: ClientSettings(
+          streamWindowSize: 1024 * 1024 * 10, // 10 MB
+        ));
   }
 
   Future<Stream<List<int>>> connectImpl(Proxy? proxy) async {
